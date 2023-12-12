@@ -23,12 +23,7 @@ except Exception as e:
     print(f"Erreur lors de la récupération des devises supportées : {e}")
 
 # Demander à l'utilisateur de saisir le montant
-while True:
-    try:
-        montant = float(input("Entrez le montant à convertir : "))
-        break
-    except ValueError:
-        print("Veuillez entrer un montant valide.")
+montant = float(input("Entrez le montant à convertir : "))       
 
 # Demander à l'utilisateur de saisir la devise source
 devise_source = input("Entrez la devise source : ")
