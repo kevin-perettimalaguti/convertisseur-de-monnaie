@@ -1,10 +1,11 @@
+# Importation des modules 
 from forex_python.converter import CurrencyRates
 import json
 import os
 from tkinter import *
 from tkinter import ttk
 
-# Couleur que je vais utiliser
+# Couleurs que je vais utiliser
 orange = "#f3810e"
 white = "#ffffff"
 dark_grey = "#21212b"
@@ -18,7 +19,7 @@ fenetre.config(bg=orange)
 # Créer une instance de CurrencyRates
 c = CurrencyRates()
 
-# Liste des devises dont la fonction dispose
+# Liste des devises disponibles dans la fonction
 devises_supportees = list(c.get_rates('USD').keys())
 
 # Header
@@ -32,34 +33,34 @@ label_title.place(relx=0.1, rely=0.2)
 # Montant
 label_a = Label(fenetre, text="Le Montant", font=("Ivy 15"), width=10, height=1, padx=5, pady=1, relief="flat",
                 anchor=NW, bg="#f3810e")
-label_a.place(relx=0.5, rely=0.30, anchor=CENTER)  # Place au centre
-
+label_a.place(relx=0.5, rely=0.30, anchor=CENTER) 
+ 
 montant_visuel = Entry(fenetre, justify=CENTER, width=30)
-montant_visuel.place(relx=0.5, rely=0.37, anchor=CENTER)  # Place au centre
+montant_visuel.place(relx=0.5, rely=0.37, anchor=CENTER)  
 
 # Label "From"
 label_de = Label(fenetre, text="From", font=("Ivy 15"), width=10, height=1, padx=5, pady=1, relief="flat",
                  anchor=NW, bg="#f3810e")
-label_de.place(relx=0.3, rely=0.47, anchor=CENTER)  # Place au centre
+label_de.place(relx=0.3, rely=0.47, anchor=CENTER)  
+
+# Combobox "From"
+devise_depart = ttk.Combobox(fenetre, width=8, justify=CENTER, font=("Ivy 15"))
+devise_depart.place(relx=0.3, rely=0.55, anchor=CENTER)  
+devise_depart["values"] = devises_supportees 
 
 # Label "To"
 label_a = Label(fenetre, text="To", font=("Ivy 15"), width=10, height=1, padx=5, pady=1, relief="flat",
                 anchor=NW, bg="#f3810e")
-label_a.place(relx=0.7, rely=0.47, anchor=CENTER)  # Place au centre
-
-# Combobox "From"
-devise_depart = ttk.Combobox(fenetre, width=8, justify=CENTER, font=("Ivy 15"))
-devise_depart.place(relx=0.3, rely=0.55, anchor=CENTER)  # Place au centre
-devise_depart["values"] = devises_supportees  # Vous devez définir les valeurs pour la liste des devises
+label_a.place(relx=0.7, rely=0.47, anchor=CENTER) 
 
 # Combobox "To"
 devise_arrive = ttk.Combobox(fenetre, width=8, justify=CENTER, font=("Ivy 15"))
-devise_arrive.place(relx=0.7, rely=0.55, anchor=CENTER)  # Place au centre
-devise_arrive["values"] = devises_supportees  # Vous devez définir les valeurs pour la liste des devises
+devise_arrive.place(relx=0.7, rely=0.55, anchor=CENTER)  
+devise_arrive["values"] = devises_supportees 
 
 label_resultat = Label(fenetre, text="", font=("Ivy 15"), width=35, height=1, padx=5, pady=1, relief="flat",
                       anchor=NW, bg="#ffffff")
-label_resultat.place(relx=0.5, rely=0.69, anchor=CENTER)  # Place au centre
+label_resultat.place(relx=0.5, rely=0.69, anchor=CENTER)  
 
 # Vérifier si le fichier d'historique existe
 fichier_historique = 'save_des_conversion.json'
@@ -100,7 +101,7 @@ def calcule_conversion():
         
 # Fonction pour effacer l'historique
 def clear_historique():
-    # Efface l'historique dans le code principal et met à jour l'affichage dans la fenêtre d'historique
+    # Effacer l'historique dans le code principal et mettre à jour l'affichage dans la fenêtre d'historique
     global historique_conversions
     historique_conversions = []
     afficher_historique()
