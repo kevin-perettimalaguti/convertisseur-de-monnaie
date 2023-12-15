@@ -9,7 +9,6 @@ orange = "#f3810e"
 white = "#ffffff"
 dark_grey = "#21212b"
 
-
 # Fenêtre principale du convertisseur
 fenetre = Tk()
 fenetre.geometry("450x430")
@@ -98,31 +97,42 @@ def calcule_conversion():
 
     if taux is None:
         label_resultat.config(text="Erreur, je ne comprends pas ta conversion")
+        
+# Fonction pour effacer l'historique
+def clear_historique():
+    # Efface l'historique dans le code principal et met à jour l'affichage dans la fenêtre d'historique
+    global historique_conversions
+    historique_conversions = []
+    afficher_historique()
 
-
-# Afficher l'historique dans le widget Listbox de la nouvelle fenêtre
+# Afficher l'historique dans la fenêtre avec une barre de défilement
 def afficher_historique():
     page_historique = Tk()
     page_historique.title("Historique")
-    page_historique.geometry("320x420")
-    page_historique.config(bg=dark_grey)
+    page_historique.geometry("320x460")
+    page_historique.config(bg=dark_grey)    
 
-    # Créer un widget Listbox
+    # Créer un widget Listbox avec la barre de défilement
     listbox_histo = Listbox(page_historique, width=40, height=20, font=("Ivy 10"), bg=dark_grey, fg=white, justify=CENTER)
 
     # Ajouter les éléments de l'historique à la Listbox
     for conversion in historique_conversions:
         montant_str = f"{conversion['montant']} {conversion['devise_source']} => " \
                       f"{conversion['montant_converti']} {conversion['devise_cible']}"
-        listbox_histo.insert(END, montant_str)
+        listbox_histo.insert(END, montant_str)    
 
     listbox_histo.pack(pady=20)
-
+    
     # Bouton pour fermer la fenêtre
     bouton_fermer = Button(page_historique, text="Fermer", font=("Ivy 12"), width=10, height=1,
-                           command=page_historique.destroy, bg=orange, fg=dark_grey, relief="flat")
-    bouton_fermer.pack()
+                       command=page_historique.destroy, bg=orange, fg=dark_grey, relief="flat")
+    bouton_fermer.pack(pady=5)  # Ajout d'un espace en bas
 
+    # Bouton pour effacer l'historique
+    bouton_clear_histo = Button(page_historique, text="Clear Historique", font=("Ivy 12"), width=15, height=1,
+                            command=clear_historique, bg=orange, fg=dark_grey, relief="flat")
+    bouton_clear_histo.pack(pady=5)  # Ajout d'un espace en bas
+    
 
 # Bouton de conversion
 bouton_convertir = Button(fenetre, text="Convertir", font=("Ivy 15"), width=8, height=1, command=calcule_conversion,
